@@ -151,7 +151,7 @@ cd eco-monitoring-pavlodar
 2. **Настройте переменные окружения**
 ```bash
 cp .env.example .env
-nano .env
+nano .env 
 ```
 
 Добавьте ваш Gemini API Key:
