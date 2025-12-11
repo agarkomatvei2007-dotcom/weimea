@@ -1,0 +1,159 @@
+{
+  "app": {
+    "name": "EcoMonitor",
+    "tagline": "Smart Environmental Monitoring",
+    "city": "Pavlodar"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "map": "Map",
+    "alerts": "Alerts",
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "signout": "Sign Out",
+    "getStarted": "Get Started",
+    "profile": "Profile"
+  },
+  "hero": {
+    "title": "Your air quality,",
+    "titleHighlight": "intelligently monitored.",
+    "subtitle": "Experience real-time environmental monitoring powered by AI. Track pollution levels, get instant alerts, and breathe easier.",
+    "startTrial": "Start Free Trial",
+    "viewDemo": "View Live Demo"
+  },
+  "stats": {
+    "realtime": "Real-time Monitoring",
+    "sensors": "Active Sensors",
+    "aiPowered": "Powered Analytics"
+  },
+  "features": {
+    "title": "Why EcoMonitor?",
+    "subtitle": "Everything you need for environmental monitoring",
+    "hyperlocal": {
+      "title": "Hyperlocal Data",
+      "description": "Get pollution data specific to your neighborhood. Know exactly what you're breathing."
+    },
+    "ai": {
+      "title": "AI Predictions",
+      "description": "Gemini AI predicts pollution spikes before they happen. Stay ahead of the curve."
+    },
+    "alerts": {
+      "title": "Instant Alerts",
+      "description": "Receive real-time notifications when air quality drops. Protect your health."
+    }
+  },
+  "dashboard": {
+    "title": "Live Dashboard",
+    "lastUpdate": "Last update",
+    "refresh": "Refresh",
+    "aqi": "Air Quality Index",
+    "healthRecommendation": "Health Recommendation",
+    "sensorNetwork": "Sensor Network",
+    "trends": "24-Hour Trends",
+    "aiInsights": "AI-Powered Insights",
+    "activeAlerts": "Active Alerts"
+  },
+  "pollutants": {
+    "pm25": "PM2.5",
+    "pm10": "PM10",
+    "no2": "NO₂",
+    "co": "CO",
+    "o3": "O₃",
+    "so2": "SO₂",
+    "temperature": "Temperature",
+    "humidity": "Humidity"
+  },
+  "aqi": {
+    "good": "Good",
+    "moderate": "Moderate",
+    "unhealthySensitive": "Unhealthy for Sensitive Groups",
+    "unhealthy": "Unhealthy",
+    "veryUnhealthy": "Very Unhealthy",
+    "hazardous": "Hazardous",
+    "noData": "No Data"
+  },
+  "map": {
+    "title": "Pollution Map",
+    "legend": "Legend",
+    "showHeatmap": "Show Heatmap",
+    "showMarkers": "Show Markers",
+    "sensorInfo": "Sensor Information",
+    "clickForDetails": "Click on a sensor for details"
+  },
+  "chat": {
+    "title": "AI Assistant",
+    "placeholder": "Ask about air quality...",
+    "send": "Send",
+    "suggestions": "Suggested questions",
+    "typing": "EcoAssist is typing...",
+    "error": "Sorry, an error occurred. Please try again."
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "signInSubtitle": "Sign in to access your dashboard",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "fullName": "Full Name",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signingIn": "Signing in...",
+    "signingUp": "Signing up...",
+    "orContinueWith": "Or continue with",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "createAccount": "Create Account",
+    "termsAgree": "I agree to the Terms of Service and Privacy Policy",
+    "backToHome": "Back to home",
+    "googleSignIn": "Google",
+    "githubSignIn": "GitHub",
+    "verifyEmail": "Please verify your email address",
+    "passwordRequirements": "Password must be at least 8 characters with uppercase, lowercase, and numbers"
+  },
+  "cta": {
+    "title": "Ready to breathe easier?",
+    "subtitle": "Join the smart environmental monitoring revolution",
+    "button": "Get Started Free"
+  },
+  "footer": {
+    "description": "Making air quality data accessible to everyone in Pavlodar.",
+    "product": "Product",
+    "features": "Features",
+    "pricing": "Pricing",
+    "api": "API",
+    "company": "Company",
+    "about": "About",
+    "blog": "Blog",
+    "careers": "Careers",
+    "resources": "Resources",
+    "documentation": "Documentation",
+    "support": "Support",
+    "status": "Status",
+    "copyright": "EcoMonitor Pavlodar. Powered by Gemini AI"
+  },
+  "language": {
+    "select": "Language",
+    "en": "English",
+    "ru": "Russian",
+    "kk": "Kazakh"
+  },
+  "alerts": {
+    "critical": "Critical Alert",
+    "high": "High Alert",
+    "medium": "Medium Alert",
+    "low": "Low Alert"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "close": "Close",
+    "viewMore": "View More",
+    "viewAll": "View All"
+  }
+}

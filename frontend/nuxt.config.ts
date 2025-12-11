@@ -3,7 +3,24 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
 
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxtjs/i18n'],
+
+  i18n: {
+    locales: [
+      { code: 'en', name: 'English', file: 'en.json' },
+      { code: 'ru', name: 'Русский', file: 'ru.json' },
+      { code: 'kk', name: 'Қазақша', file: 'kk.json' }
+    ],
+    defaultLocale: 'en',
+    lazy: true,
+    langDir: 'locales/',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root'
+    }
+  },
 
   runtimeConfig: {
     public: {
@@ -18,7 +35,8 @@ export default defineNuxtConfig({
       // API Endpoints
       iotApiUrl: process.env.NUXT_PUBLIC_IOT_API_URL || 'http://localhost:8001',
       analyticsApiUrl: process.env.NUXT_PUBLIC_ANALYTICS_API_URL || 'http://localhost:8002',
-      alertApiUrl: process.env.NUXT_PUBLIC_ALERT_API_URL || 'http://localhost:8003'
+      alertApiUrl: process.env.NUXT_PUBLIC_ALERT_API_URL || 'http://localhost:8003',
+      authApiUrl: process.env.NUXT_PUBLIC_AUTH_API_URL || 'http://localhost:8004'
     }
   },
 
@@ -34,7 +52,8 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'stylesheet', href: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css' }
       ]
-    }
+    },
+    pageTransition: { name: 'page', mode: 'out-in' }
   },
 
   css: ['~/assets/css/main.css']

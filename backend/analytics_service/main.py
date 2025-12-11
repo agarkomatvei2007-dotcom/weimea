@@ -412,6 +412,112 @@ async def get_ai_insights(
         raise HTTPException(status_code=500, detail=f"AI insights failed: {str(e)}")
 
 
+@app.post("/chat")
+async def ai_chat(
+    message: str,
+    language: str = "en",
+    db: Session = Depends(get_db)
+):
+    """
+    AI Assistant chat endpoint - answers questions about air quality and pollution
+    Supports English, Russian, and Kazakh languages
+    """
+    # Get recent environmental data for context
+    recent = db.query(
+        func.avg(SensorReading.pm25).label('pm25'),
+        func.avg(SensorReading.pm10).label('pm10'),
+        func.avg(SensorReading.no2).label('no2'),
+        func.avg(SensorReading.co).label('co'),
+        func.avg(SensorReading.temperature).label('temp'),
+        func.avg(SensorReading.humidity).label('humidity')
+    ).filter(
+        SensorReading.timestamp >= datetime.utcnow() - timedelta(hours=24)
+    ).first()
+
+    # Calculate current AQI
+    aqi_data = calculate_aqi(
+        pm25=recent.pm25 if recent.pm25 else 0,
+        pm10=recent.pm10 if recent.pm10 else 0,
+        no2=recent.no2 if recent.no2 else 0,
+        co=recent.co if recent.co else 0
+    )
+
+    # Language-specific system prompts
+    language_prompts = {
+        "en": "You are EcoAssist, an AI assistant specialized in environmental monitoring and air quality. Respond in English.",
+        "ru": "Вы - EcoAssist, AI-помощник по мониторингу окружающей среды и качества воздуха. Отвечайте на русском языке.",
+        "kk": "Сіз - EcoAssist, қоршаған ортаны бақылау және ауа сапасы бойынша AI көмекшісіз. Қазақ тілінде жауап беріңіз."
+    }
+
+    system_prompt = language_prompts.get(language, language_prompts["en"])
+
+    # Create context-aware prompt
+    prompt = f"""
+    {system_prompt}
+
+    Current environmental data for Pavlodar, Kazakhstan:
+    - AQI: {aqi_data['aqi']} ({aqi_data['category']})
+    - PM2.5: {recent.pm25:.2f if recent.pm25 else 'N/A'} µg/m³
+    - PM10: {recent.pm10:.2f if recent.pm10 else 'N/A'} µg/m³
+    - NO₂: {recent.no2:.2f if recent.no2 else 'N/A'} µg/m³
+    - CO: {recent.co:.2f if recent.co else 'N/A'} mg/m³
+    - Temperature: {recent.temp:.1f if recent.temp else 'N/A'}°C
+    - Humidity: {recent.humidity:.1f if recent.humidity else 'N/A'}%
+
+    User question: {message}
+
+    Provide helpful, accurate information about air quality, health recommendations,
+    and environmental conditions. Be concise but thorough. If the question is not
+    related to environmental monitoring or air quality, politely redirect the conversation.
+    """
+
+    try:
+        response = model.generate_content(prompt)
+
+        return {
+            "response": response.text,
+            "context": {
+                "aqi": aqi_data['aqi'],
+                "category": aqi_data['category'],
+                "timestamp": datetime.utcnow()
+            }
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"AI chat failed: {str(e)}")
+
+
+@app.get("/chat/suggestions")
+async def get_chat_suggestions(language: str = "en"):
+    """Get suggested questions for the AI chat"""
+    suggestions = {
+        "en": [
+            "What is the current air quality in Pavlodar?",
+            "Is it safe to exercise outdoors today?",
+            "What are the main sources of pollution here?",
+            "How can I protect myself from air pollution?",
+            "What does PM2.5 mean and why is it dangerous?"
+        ],
+        "ru": [
+            "Какое качество воздуха сейчас в Павлодаре?",
+            "Безопасно ли сегодня заниматься спортом на улице?",
+            "Какие основные источники загрязнения здесь?",
+            "Как защитить себя от загрязнения воздуха?",
+            "Что такое PM2.5 и почему это опасно?"
+        ],
+        "kk": [
+            "Павлодардағы ауа сапасы қандай?",
+            "Бүгін далада спортпен айналысу қауіпсіз бе?",
+            "Мұндағы негізгі ластану көздері қандай?",
+            "Ауаның ластануынан қалай қорғануға болады?",
+            "PM2.5 дегеніміз не және неге қауіпті?"
+        ]
+    }
+
+    return {
+        "suggestions": suggestions.get(language, suggestions["en"])
+    }
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8002)
